@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <ul>
+            <input v-model="keyWord" placeholder="模糊搜索">
+            <li v-for="col in filPerson">{{col.name}} - {{col.age}} - {{col.sex}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            keyWord:"",
+            message:"Hello Vue",
+            persons:[
+                {id:"001",name:"李白",age:23,sex:"男"},
+                {id:"002",name:"白居易",age:18,sex:"女"},
+                {id:"003",name:"杜甫",age:36,sex:"女"},
+                {id:"004",name:"杜某人",age:25,sex:"男"},
+                {id:"005",name:"甫秋菊",age:21,sex:"女"},
+                {id:"006",name:"李维",age:20,sex:"男"}
+            ]
+        },
+        computed:{
+            filPerson(){
+                return this.persons.filter((p)=>{
+                    return p.name.indexOf(this.keyWord)!==-1;
+                })
+            }
+        }
+    })
+</script>
+</html>

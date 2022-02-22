@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="js/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            单项数据绑定：<input type="text" v-bind:value="msg"><br/>
+            双向数据绑定：<input type="text" v-model:value="msg">
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el:"#app",
+            data:{
+                msg:"Hello"
+            }
+        });
+    </script>
+</html>

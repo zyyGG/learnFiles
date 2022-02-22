@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <div>
+            <h2 :style="{opacity:opacity}">欢迎学习VUE</h2>
+        </div>
+    </div>
+
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            opacity:"1",
+        },
+        methods:{
+            
+        },
+        //vue 完成模板解析的时候，并把初始的(以后再加入的不会再触发)真实dom元素放入页面后（完成挂载）调用mounted
+        mounted(){
+            setInterval(() => {
+                this.opacity-=0.01;
+                if(this.opacity <= 0){
+                    this.opacity = 1;
+                }
+            }, 160);
+        }
+    })
+
+    //通过外部定时器实现
+    /* setInterval(()=>{
+        vm.opacity-=0.01;
+        if(vm.opacity<=0){
+            vm.opacity=1;
+        }
+    },16) */
+</script>
+</html>

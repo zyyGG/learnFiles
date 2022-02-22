@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <school></school>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false;
+
+    //定义student组件
+    const student=Vue.extend({
+        template:`
+            <div>
+                <p>学生姓名：{{name}}</p>
+                <p>学生年龄：{{age}}</p>
+            </div>
+        `,
+        data(){
+            return {
+                name:"张三",
+                age:18,
+            }
+        }
+    })
+
+    //定义school组件
+    const school=Vue.extend({
+        template:`
+            <div>
+                <student></student>
+                <p>学校名字：{{name}}</p>
+                <P>学校地址：{{address}}</p>
+            </div>
+        `,
+        data(){
+            return{
+                name:"ABCDE",
+                address:"翻斗大街翻斗小区401",
+            }
+        },
+        // 局部注册
+        components:{
+            student:student,
+        }
+    })
+
+    
+
+
+
+    var vm=new Vue({
+        el:"#app",
+        //注册组件（局部）
+        components:{
+            school:school,
+        }
+    })
+</script>
+</html>

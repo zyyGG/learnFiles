@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <div v-show="false">Text</div>
+        <button @click="isShow==false?isShow=true:isShow=false">Click</button>
+    </div>
+    <template>
+        <div>
+            <p>Line one</p>
+            <p>Line Two</p>
+            <p>Line Three</p>
+        </div>
+    </template>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            isShow:true,
+        }
+    })
+</script>
+</html>
+
+

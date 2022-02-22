@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <button v-on:click="inputed">Click</button>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue"
+        },
+        
+        computed:{
+            /*
+            inputed:{
+                get(){
+                    return this.message;
+                }
+            }
+            */
+            inputed:function(){
+                return this.message;
+            }
+        }
+
+    })
+</script>
+</html>

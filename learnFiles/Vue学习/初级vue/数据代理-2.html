@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+    </div>
+</body>
+<script>
+    //数据代理就是：通过一个对象代理另一个对象中属性的操作(get/set)
+    let A={name:"functionA",value:100}
+    let B={name:"functionB"}
+
+    Object.defineProperty(B,"value",{
+        get(){
+            console.log("functionB is Read");
+            return A.value;
+        },
+        set(value){
+            A.value=value;
+        }
+    })
+
+
+
+new Vue({
+    el:"#app",
+    data:{
+        message:"Hello Vue"
+    }
+})
+</script>
+</html>

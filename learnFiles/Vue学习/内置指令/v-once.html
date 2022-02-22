@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/vue2+3/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        v-once指令
+            1.v-once所在的节点在初次动态渲染后，就视为静态内容了
+            2.以后数据的改变不会引起v-once所在结构的更新,可以用于优化性能
+     -->
+    <div id="app">
+        <p>{{message}}</p>
+        <p v-once>初始化的值{{n}}</p>
+        <p>当前的值{{n}}</p>
+        <button @click="n++">n+1</button>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            n:0,
+        }
+    })
+</script>
+</html> 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>欢迎来到{{message}}</p>
+        <button @click="print">点我提示信息</button>
+        <button @click="print2(66,$event)">点我提示信息2</button>
+    </div>
+
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Vue"
+        },
+        methods:{
+            print(event){
+                console.log(event.target);
+                alert("弹窗信息");
+            },
+            print2:function(number,a){
+                console.log(number);
+                console.log(a.target)
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="C:/Users/Administrator/Desktop/HTML/vue2+3/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <hr/>
+        <button @click="appendChild()">添加一个响应数据</button>
+        <p>名字{{student.name}}</p>
+        <p>性别{{student.sex}}</p>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            student:{
+                name:"NAD",sex:"Women"
+            }
+        },
+        methods:{
+            appendChild(){
+                let demo=document.getElementById("app");
+                let node=document.createElement("p");
+                node.innerHTML="年龄{{student.age}}";
+                demo.appendChild(node);
+            }
+        }
+    })
+</script>
+</html>

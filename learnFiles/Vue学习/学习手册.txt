@@ -1,0 +1,396 @@
+vue的使用
+vue2-3
+
+vue基础
+vue-cli
+vue-router
+vuex
+element-ui
+vue3    
+
+<div>
+    {{message}}
+</div>
+
+在这里的message中
+可以是基本的js表达式
+
+不可以是
+    js的代码
+    if(){}
+    for(){}
+    while(){}
+
+    等等等
+    所有符合的js代码
+
+1.3
+模板语法
+
+
+el与data的两种写法
+const x=new vue({
+    el:"#app"//第一种写法
+})
+x.$mount("#app");//第二种
+
+data的两种写法
+new Vue({
+    el:"#app",
+    data:{//data 的第一种写法，对象式
+        message:"demo"
+    }
+
+    //第二种 函数式
+    data:function(){
+        return{
+            message:"demo-function"
+        }
+    }
+
+关于data的写法，尽量掌握，后面会用到
+
+})
+
+
+数据代理：
+
+
+监视的简写属性:
+    前提是，不需要其他的配置项的时候可以使用简写
+    //完整的
+    watch:{
+        info:{
+            handler(){
+                console.log("完整的")
+            }
+        }
+    }
+    //简写：
+    watch:{
+        info(newValue,oldValue){
+            console.log("简写")
+        }
+    }
+    //$watch的全写
+    vm.$watch('isHot',{
+        deep:true,
+        handler(){
+            console.log("$watch的全写")
+        }
+    })
+
+    //$watch的简写
+    vm.$watch('watch',function(newValue,oldValue){
+        console.log("$watch的简写")
+    })
+
+    
+    watch的属性 
+     
+
+
+箭头函数的使用
+setTimeOut(()=>{
+    console.log(this)
+},1000)
+
+箭头函数直接指向自身，如果调用this无法找到就寻找外围函数的this.
+
+
+样式绑定规则
+
+:class="mood"   //字符串写法
+mood="normal"
+
+//数组写法
+:class=classArr
+classArr=['normal','happy','sad']
+
+//对象写法
+:class="classObj"
+classObj={normal:true,happy:false,sad:false}
+
+使用v-bind来修改style
+
+<div v-bind:style="{color:red,backgroundColor:yellow,fontSize:size+'px'}">Text</div>
+data:{
+    size:50
+}
+
+一般这样好看些
+<div v-bind:style="styleObj">Text</div>
+
+el:
+data:{
+    styleObj:{
+        fontSize:"40px";
+    }
+},
+
+第三种
+<div :style=[styleObj,styleObj2]>Text</div>
+
+data:{
+    styleObj:{
+        ....
+    },
+    styleObj2{
+        ...
+    }
+
+}
+
+第四种
+<div :style="styleArr">Text</div>
+
+data:{
+    styleArr:[
+        {
+            ...
+        },
+        {
+            ...
+        }
+    ]
+}
+
+
+vue的条件渲染
+v-show
+v-if
+v-else-if
+v-else//这个使用的时候不用加条件
+
+
+vue的列表渲染
+    <li v-for="(p,index) in person">{{p.name}}---{{index}}</li>
+
+    data:{
+        person:[
+            {id:"1",name:"one",age:18},
+            {id:"2",name:"two",age:15},
+        ]
+    }
+
+    这个显示结果 
+    one----0
+    two----1
+
+    在v-for循环的时候参数(p,index) in person
+    是可以读出来索引的
+
+    <li v-for="p,index in person" :key="p.id">{{p.name}}</li>
+    这样也可以，不用加括号，还有也可以给元素指定一个唯一的id
+
+key的作用和原理
+    甚至用 v-for="p of person"   中间也可以用of和js类似，在未来框架更新后这个很可能会被消除
+
+    虚拟dom对比算法，根据key来进行 ，dom的dif算法（对比算法 ）
+    根据key相同的时候会进行服用，负责就会进行重新生成
+
+列表过滤
+    收集用户输入 v-model="inputValue"
+    当用户输入的值变化的时候进行检测  用watch监视
+    进行过滤 
+    this.filPersons=this.persons.filter((p)=>{
+        return p.name.indexOf(val) !==-1
+    });
+    初始化:
+    在watch中使用immediate:true;
+
+    如果使用cmputed实现
+
+    computed:{
+        filpersons(){
+            reuturn this.persons.filter((p)=>{
+                return p.name.indexOf(this.keyword)!==1 
+            })
+        }
+    }
+
+列表的排序
+    使用按钮完成
+    filPerson(){
+        const arr = this.persons.filter((p)=>{
+            return p.name.indexOf(this.keyWord)!==-1;
+        })
+        //判断是否排序
+        if(this.sortType!==0){
+                arr.sort((a,b)=>{
+                //函数体
+                return this.sortType===1?b.age-a.age : a.age-b.age
+            });
+        }
+        
+        return arr;
+    }
+
+数据计算是如何完成的
+    data:{
+        name:"Tom"
+    }
+
+
+<li v-for="(f,index) in student.friends" :key="index">
+    {{f.name}}--{{f.age}}
+</li>
+
+给后添加的数据增加响应式的功能
+Vue.set()   API  
+Vue.set(target,key,val);语法
+
+Vue.set(vm._data.student,"sex","男");
+
+
+vm身上也有vm.$set(target,key,val);
+这两个都可以添加一个新的响应式数据
+
+简写也可以.Vue.set(vm.student,"sex","男")
+
+vue的数组检测  
+因为数组的特殊性，直接操作数组中的单个数据是没有办法做到响应更新的
+为了响应更新，需要使用vue中的数组操作方法来更改数据例如
+push
+pop
+shift
+unshift
+
+也可以配合vue.set来更改
+
+var vm=new Vue(){
+    el:"#app",
+    data:{
+        object:{
+            arr:[1,2,3,4,5]
+        }
+    }
+}
+
+<div id="app">
+    <ul>
+        <li v-for="x in arr">{{x}}</li>
+    </ul>
+</div>
+
+在控制台中输入
+Vue.set(vm.object.arr,0,10);
+这个会把arr的第一个数字改为10
+
+或者使用
+vm._data.object.arr.unshift();
+vm._data.object.arr.shift(10)
+
+这两个也可以做到一样效果，并且页面也是响应的
+
+
+关于所有vue检测的总结以及练习
+
+p47
+
+指令的总结
+    1.局部指令
+        new Vue({
+            directives:{指令名:配置对象/函数} 
+        })
+    2.全局指令
+        new Vue({
+            Vue.directive:(指令名:配置对象/函数)
+        })
+
+    二。配置对象中常用的3个回调：
+        （1）.bind:指令与元素成功绑定时调用：
+        （2）.inserted:指令所在元素被插入页面时调用。
+        （3）.update:指令所在模板结构被重新解析时调用
+
+    三.其他
+        指令定义时不加v-,但使用时要加v-
+
+        指令名如果时过个单词，要使用kebab-case命名方式，不要用camelCase命名
+    
+
+生命周期钩子函数
+
+beforeCreate:实例创建前
+
+created：实例创建时
+
+beforeMount：实例挂载前
+
+mounted：实例挂在时
+
+BeforeUpdate：实例数据刷新前
+
+updated:实例数据刷新时
+
+beforeDestroy：实例销毁前
+
+destroy：实例销毁后
+
+
+组件化学习：    
+    非单文件组件:  
+        一个文件中包含有N个组件
+
+    单文件组件：
+        一个文件中只包含有1个组件
+
+局部注册
+const school = Vue.extand({
+    template:`
+        <div>
+            <h2>Hello,{{msg}}</h2>
+        </div>
+    `,
+    data:{
+        msg:world,
+    },
+    methods:{
+        add(){
+            num++;
+        }
+    }
+})
+
+注册注册
+const vm = new Vue({
+    components:{
+        school:xuexiao,
+        student:xuesheng,
+    }
+})
+
+使用
+<school></school>
+组件中不要用el配置项
+
+全局注册：
+    //"hello"是名字,hello是组件的位置
+    Vue.component('hello',hello);
+
+
+
+
+如何搭建脚手架
+
+需要安装node.js
+
+命令行
+npm install -g @vue/cli
+
+使用vue来检测是否安装成功
+
+使用命令 cd Desktop 安装至桌面
+
+之后运行. vue create [项目名称]
+
+之后选择语言版本
+
+之后运行命令
+cd vue_test
+
+然后
+npm run serve
+
+
+p72

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/dayjs/1.10.6/dayjs.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <h2>显示格式化后的时间</h2>
+        <!-- 计算属性 -->
+        <p>现在是：{{fmtTime}}</p>
+        <!-- methods实现 -->
+        <p>现在是：{{getFmtTime()}}</p>
+        <!-- 过滤器实现 -->
+        <p>现在是：{{time | timeformatter}}</p>
+        <p>现在是：{{time | timeformatter('YYYY_MM_DD')}}</p>
+        <p>现在是：{{time | timeformatter('YYYY_MM_DD') | mySlice}}</p>
+
+        <h3 :x="msg | mySlice">
+            新文本
+        </h3>
+    </div>
+
+    <div id="root">
+        <h2>{{message}}</h2>
+        <h2>{{message | mySlice}}</h2>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false;
+    // 全局过滤器
+    Vue.filter('mySlice',function(value){
+        return value.slice(0,4);
+    })
+
+    //两个Vue实例
+    new Vue({
+        el:"#root",
+        data:{
+            message:"hello world",
+        }
+    
+    });
+
+
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            time:1621561377605,//时间戳
+            msg:"中  文字符,以及更多",
+        },
+        computed: {
+            fmtTime(){
+                return dayjs().format('YYYY年MM月DD日 HH:mm:ss');
+            }
+        },
+        methods: {
+            getFmtTime(){
+                return dayjs().format('YYYY年MM月DD日 HH:mm:ss'); 
+            }
+        },
+        filters:{
+            timeformatter:function(value,str='YYYY年MM月DD日 HH:mm:ss'){
+                console.log("@",value);
+                return dayjs(value).format(str);
+            }
+        }
+    })
+</script>
+</html>

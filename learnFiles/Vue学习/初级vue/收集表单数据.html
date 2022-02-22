@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        收集表单数据
+        若<input type="text">,则v-model收集的时value值,用户输入的就是value值
+        若<input type="radio">,则v-model收集的时value值,且要给标签配置value值
+        若<input type="checkbox">
+            1.没有配置input的value属性,那么手机的就是checked的值 布尔值
+            2.配置了value属性
+                (1).v-model 的初始值时非数组,收集的依然是checked的值
+                (2).v-model 的初始值是数组,那么收集的就是value组成的数组
+
+        备注：v-model的三个修饰符
+            lazy:失去焦点的时候收集数据
+            number:输入字符串转为有效数字
+            trim:输入首位空格过渡 过滤空格
+
+     -->
+    <div id="app">
+        <form @submit.prevent="demo">
+            <label for="account">账号：</label>
+            <input id="account" type="text" v-model.trim="userInfo.account"><br/><br/>
+            <label for="passwrod">密码：</label>
+            <input id="passwrod" type="password" v-model.trim="userInfo.password"><br/><br/>
+            <label for="passwrod">年龄：</label>
+            <input id="passwrod" type="text" v-model.number="userInfo.age"><br/><br/>
+            
+
+            <label>性别：</label>
+            <label>男</label><input type="radio" name="sex" value="men" v-model="userInfo.sex">
+            <label>女</label><input type="radio" name="sex" value="famele" v-model="userInfo.sex">
+            <br/><br/>
+
+            <label>爱好：</label>
+            <label>吃饭</label><input type="checkbox" v-model="userInfo.hobby" value="eat">
+            <label>喝水</label><input type="checkbox" v-model="userInfo.hobby" value="drink">
+            <label>打游戏</label><input type="checkbox" v-model="userInfo.hobby" value="game">
+            <br/><br/>  
+
+            <label>所属校区</label>
+            <select v-model="userInfo.city">
+                <option value="">请选择校区</option>
+                <option value="beijing">北京</option>
+                <option value="shenzheng">深圳</option>
+                <option value="guangzhou">广州</option>
+                <option value="shanghai">上海</option>
+                <option value="nanjing">南京</option>
+                <option value="xianggang">香港</option>
+            </select>
+            <br/><br/>
+
+            <label>其他信息：</label>
+            <textarea cols="30" rows="10" v-model.lazy="userInfo.other"></textarea>
+            <br/><br/>
+
+            <input type="checkbox" v-model="userInfo.agree">
+            <label>阅读并接受<a href="http://www.baidu.com">《用户协议》</a></label>
+            <br/><br/>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            userInfo:{
+                message:"Hello Vue",
+                account:'',
+                password:'',
+                sex:'men',
+                hobby:[],
+                city:'',
+                other:'',
+                agree:'',
+                age:'',
+            }
+        },
+        methods: {
+            demo(){
+                //如何动用ajax
+                console.log(JSON.stringify(this.userInfo));    
+            }
+        },
+    })
+</script>
+</html>

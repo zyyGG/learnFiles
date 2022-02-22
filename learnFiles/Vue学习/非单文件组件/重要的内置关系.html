@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        1.一个重要的内置关系：VueComponent.prototype.__proto__ === Vue.prototype
+        2.为什么要有这个关系，让组件实例对象(vc)可以访问到Vue原型上的属性，方法
+     -->
+    <div id="app">
+        <p>{{message}}</p>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false;
+
+    //定义一个构造函数
+    function Demo(){
+        this.a=1;
+        this.b=2;
+    }
+    //创建一个demo的实例对象
+    const d= new Demo();
+
+    console.log(Demo.prototype);//显示原型属性
+    console.log(d.__proto__);//隐式原型属性
+
+    //程序员铜鼓显示原型
+</script>
+</html>

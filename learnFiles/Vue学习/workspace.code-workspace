@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		},
+		{
+			"path": "..\\..\\..\\跑团\\剧本"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "vue2+3"
+	}
+}

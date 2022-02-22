@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <button @click="styleObj.fontSize='10px'">click</button>
+        <div v-bind:style="styleObj">Text</div>
+        <div :style=[styleObj,styleObj2]>Text</div>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            styleObj:{
+                fontSize:"40px",
+            },
+            styleObj2:{
+                backgroundColor:"red",
+            }
+        },
+        
+    })
+</script>
+</html>

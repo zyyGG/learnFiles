@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/vue2+3/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        v-pre指令
+            1.跳过其锁在节点的编译过程
+            2.可利用它跳过：没有使用指令语法，没有使用插值语法的节点，会加快编译
+     -->
+    <div id="app">
+        <p v-pre>{{message}}</p>
+        <p>当前的n值是{{n}}</p>
+        <button @click="n++">n+1</button>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            n:1,
+        }
+    })
+</script>
+</html>

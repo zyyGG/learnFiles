@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 只要数据发生改变.vue会自动在调用一次模板，比较消耗计算机资源 -->
+    <div id="app">
+        <p>{{message}}</p>
+        <div style="padding:5px 10px;background-color: wheat;display:inline-block">
+            <label for="lastname">姓：</label>
+            <input id="lastname" type="text" v-model="lastname">
+            <br/>
+            <label for="firstname">名：</label>
+            <input id="firstname" type="text" v-model="firstname">
+            <p>全名：{{inputName()}}</p>
+        </div>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            lastname:'张',
+            firstname:'三',
+        },
+        methods:{
+            inputName(){
+                return this.lastname.slice(0,3)+'-'+this.firstname;
+            }
+        }
+    })
+</script>
+</html>

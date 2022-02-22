@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <template v-if="true">
+            <p>Hello</p>
+        </template>
+        <!-- 便利数组 -->
+        <ul>
+            <li style="color:goldenrod">人员信息</li>
+            <li v-for="col,index in person" :key="col.id">{{col.name}}-{{col.age}}--{{index}}</li>
+        </ul>
+        <!-- 便利对象 -->
+        <ul>
+            <li style="color:goldenrod">汽车信息</li> 
+            <li v-for="(p,index) in car">{{p}}----{{index}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            person:[
+                {id:"001",name:"zhang",age:18},
+                {id:"002",name:"Qian",age:19},
+                {id:"003",name:"Sun",age:20},
+                {id:"004",name:"Li",age:21},
+                {id:"005",name:"Zhou",age:16},
+                {id:"006",name:"Wu",age:58},
+                {id:"007",name:"Zheng",age:23},
+                {id:"008",name:"Wang",age:14},
+                
+            ],
+            car:{
+                name:"奔驰",
+                price:"700000",
+                color:"RED"
+            }
+        }
+        
+    })
+</script>
+</html>

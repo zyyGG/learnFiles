@@ -1,0 +1,26 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>Index</title>
+        <meta charset="UTF-8">
+        <script type="text/javascript" src="js/vue.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <h1>{{message}}</h1>
+        </div>
+        <script type="text/javascript">
+            Vue.config.productionTip=false  //阻止生成提示
+
+            //创建vue实例
+            var vm = new Vue({
+                el:"#root",//el:document.getElementById("root");
+                data:{
+                    message:"Hello Vue"
+                }
+            })
+        </script>
+    </body>
+</html>
+
+<!---视频p5 -->>

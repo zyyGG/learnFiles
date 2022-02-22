@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        vue中的事件修饰符
+            1.prevetn:阻止默认事件
+            2.stop:阻止事件冒泡
+            3.once:事件只触发一次
+            4.capture:使用事件的捕获模式
+            5.self:只有event.target时当前操作的元素才是触发事件
+            6.passive:事件的默认行为立即执行,无需等待事件回调执行完毕
+     -->
+    <div id="app">
+        <p>{{message}}</p>
+        <!-- 阻止默认事件 prevent -->
+        <a href="https://www.baidu.com" @click.prevent="showInfo" target="_target">GO TO</a>
+        <!-- 阻止冒泡 -->
+        <div style="height:50px;background-color:lightblue" @click="showInfo">
+            <button @click.stop="showInfo">阻止冒泡</button>
+        </div>
+        <!-- 事件触发一次 -->
+        <button @click.once="showInfo">事件只触发一次</button>
+        <!-- 事件捕获模式 -->
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue"
+        },
+        methods:{
+            showInfo(e){
+                //e.stopPropagation()
+                console.log("showInfo is click");
+            }
+        }
+    })
+</script>
+</html>
+
+<!-- p16 刚开始 -->

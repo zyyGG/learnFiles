@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <!-- 阻止默认事件 -->
+        <p><a href="https//:www.baidu.com" @click.prevent="showInfo">Go to Baidu</a></p>
+        <!-- 阻止冒泡 -->
+        <p style="padding:5px;display:inline-block" @click="showInfo2"><button @click.stop="showInfo2">Click</button></p>
+        <!-- 事件只触发一次 -->
+        <p><button @click.once="showInfo3">Click</button></p>
+        <!-- 使用事件的捕获模式 -->
+        <div style="padding:5px;display:inline-block;background-color: bisque;" @click.capture=showInfo4(1)>
+            div1
+            <div style="display:inline-block;background-color:green;color:white" @click="showInfo4(2)">
+                div2
+            </div>
+        </div>
+        <br/>
+        <!-- 复合属性 -->
+        <div style="background-color:wheat;display:inline-block;padding:10px;" @click.stop="defaultInfo">
+            <a style="padding:10px;" href="https://www.baidu.com" @click.stop.prevent="defaultInfo" target="_target">Click</a>
+        </div>
+        <br/>
+        <!-- 按键的符合属性 ctrl+y 才会触发 -->
+        <input type="text" @keyup.ctrl.y="showValue" placeholder="按下ctrl+y来输出信息">
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue"
+        },
+        methods:{
+            showInfo(){
+                console.log("has been click ,But @click.prevent has been ture on");
+            },
+            showInfo2(){
+                console.log("a elemtn has been click");
+            },
+            showInfo3(){
+                console.log("this message will only input once");
+            },
+            showInfo4(number){
+                console.log("will show the outside element "+ number);
+            },
+            defaultInfo(){
+                console.log("has been click");
+            },
+            showValue(event){
+                console.log(event.target.value);
+            }
+        }
+    })
+</script>
+</html>

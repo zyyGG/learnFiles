@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        简写：
+            const school = Vue.extend(options)
+            简写为
+            const school = options
+     -->
+    <div id="app">
+        <p>{{message}}</p>
+        <school></school>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false;
+
+    const school = Vue.extend({
+        template:`
+            <div>
+                <h2>学校名称:{{name}}</h2>
+                <h2>学校地址:{{address}}</h2>
+            </div>
+        `,
+        data(){
+            return{
+                name:"ABCD",
+                address:"123456",
+            }
+        }
+    })
+
+    Vue.component
+
+    var vm=new Vue({
+        el:"#app",
+        components:{
+            school:school,
+        },
+        data:{
+            message:"Hello Vue"
+        }
+    })
+</script>
+</html> 

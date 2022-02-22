@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <!-- computed 会对内部的计算属性进行缓存。也就是在页面大量调用computed的时候，只计算一次
+        而methods每次都会调用一下。所以在大量代码时，computed会节省资源
+    -->
+    <div id="app">
+        <p>{{message}}</p>
+        <div style="padding:5px 10px;background-color: wheat;display:inline-block">
+            <label for="lastname">姓：</label>
+            <input id="lastname" type="text" v-model="lastname">
+            <br/>
+            <label for="firstname">名：</label>
+            <input id="firstname" type="text" v-model="firstname">
+            <p>全名：{{inputName}}</p>
+        </div>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            lastname:'张',
+            firstname:'三',
+        },
+        computed:{
+            inputName:{
+                // get会在什么时候调用
+                /* 
+                    1.初次读取inputname的时候，会被调用一次
+                    2.所依赖的数据发生变化的时候也会被调用一次
+                 */
+                get(){
+                    return this.lastname.slice(0,3)+'-'+this.firstname;
+                },
+                //set的调用：当inputname被修改时
+                set(value){
+                    //console.log("set"+value);
+                    const arr=value.split('-');
+                    this.lastname=arr[0];
+                    this.firstname=arr[1];
+                    console.log(value);
+                }
+            }
+        }
+    })
+</script>
+</html>
+
+<!-- p20 开始 -->

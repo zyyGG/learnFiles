@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/vue2+3/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <!-- 
+        需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍
+        需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点
+     -->
+    <div id="app">
+        <p>{{message}}</p>
+        <p>原本的：<span v-text="n"></span></p>
+        <p>放大的：<span v-big-number="n"></span></p>
+        <button @click="n++">点击后n+1</button>
+        <hr/>
+        <input type="text" v-fbind:value="n">
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            n:1,
+        },
+        directives:{
+            //big的调用时机，1.指令和元素成功绑定的时候就会调用 2.指令所在的模板被重新解析的时候也会改变
+            "big-number":function(element,binding){
+                //console.log(b);
+                element.innerHTML=binding.value * 10;
+            },
+            fbind:{
+                bind(element,binding){
+                    element.value=binding.value;
+                },
+                //指令所在的元素被插入页面的时候
+                inserted(element,binding){
+                    element.focus();
+                },
+                //指令所在元素被重新解析的时候
+                update(element,binding){
+                    element.focus();
+                    element.value=binding.value;
+                },
+            }
+            
+        }
+    })
+</script>
+</html>
+<!-- 
+    自定义指令使用的时候需要注意的事情；
+        多个单词推荐使用-分隔
+        调用的时候：v-big-number
+        定义的时候：""v-big-number:function"
+
+
+    在指令相关回调的函数里：directives
+    binding,inserted,update
+    this 是指向window的
+
+ -->
+

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <!-- 按键别名.@keyup.enter
+        enter
+        delete
+        esc
+        space
+        tab
+        up
+        down
+        left
+        right
+
+        其他按键例如
+        可以使用e.key来获取按键真正的名字
+        特殊的按键 CapsLock  得用 caps-lock
+
+        tap键会导致焦点移开
+        得使用keydown来截取
+        
+        vue未提供别名的按键，可以使用按键原始的key值去绑定，需要转换为kebab-case
+
+        3.系统修饰键（用法特殊):ctrl、alt、shift、meta
+            配合keyup使用：按下修饰键的同时再氨基钠其他键，随后释放其他键，事件才会触发
+            配合keydown使用：正常触发事件
+
+        4.也可以使用keyCode去指定具体的按键(不推荐)
+
+        5.vue.config.keyCodes.自定义键名 = 键码,可以去定制按键别名
+        Vue.config.keycodes.huiche=55;//自已定义了一个按键
+        -->
+        <input type="text" placeholder="按下回车提示输入" @keyup.huiche="showInfo">
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false;
+    Vue.config.keyCodes.huiche=65;
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue"
+        },
+        methods:{
+            showInfo(e){
+                //if(e.keyCode==13) return;
+                console.log(e.target.value);
+            }
+        }
+    })
+</script>
+</html>

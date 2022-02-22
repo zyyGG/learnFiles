@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <p>今天天气很{{info}}</p>
+        <button @click="changeWeather">切换天气</button>
+        <hr/>
+        <p>a的值是{{numbers.a}}</p>
+        <button @click="numbers.a++">点我让a+1</button>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello",
+            isHot:true,
+            numbers:{
+                a:1,
+                b:1
+            }
+        },
+        computed:{
+            info(){
+                return this.isHot?"炎热":"寒冷"
+            }
+        },
+        methods:{
+            changeWeather(){
+                this.isHot=!this.isHot;
+            }
+        },
+        watch:{
+            isHot:{
+                //函数，当isHot发生改变时调用
+                handler(newValue,oldValue){
+                    console.log("isHot被修改了");
+                    console.log(newValue,oldValue);
+                },
+                immediate:false,//默认false,初始化时会在程序加载的时候就执行
+            },
+            //多级结构的监视
+            'numbers.a':{
+                handler(){
+                    console.log("a变化了");
+                }
+            },
+            //监视多级结构中的所有变化，使用深度监视.deep
+            numbers:{
+                deep:true,
+                handler(){
+                    console.log("numbers深度监视")
+                }
+            }
+
+        }
+    })
+</script>
+</html>

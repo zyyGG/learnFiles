@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="/学习实例代码/js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{message}}</p>
+        <p>当前的n值:{{n}}</p>
+        <button @click="add">n+1</button>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip=false
+    var vm=new Vue({
+        el:"#app",
+        data:{
+            message:"Hello Vue",
+            n:0,
+        },
+        methods: {
+            add(){
+                this.n++;
+            }
+        },
+        //Vue开始运行中
+        beforeCreate() {
+            console.log("beforeCreate");
+            console.log(this);
+            
+        },
+        created() {
+            console.log("created")
+            console.log(this);
+            debugger;
+        },
+    })
+</script>
+</html>
